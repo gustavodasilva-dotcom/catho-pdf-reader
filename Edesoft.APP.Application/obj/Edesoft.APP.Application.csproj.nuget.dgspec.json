@@ -1,0 +1,270 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Application\\Edesoft.APP.Application.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Abstractions\\Edesoft.APP.Abstractions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Abstractions\\Edesoft.APP.Abstractions.csproj",
+        "projectName": "Edesoft.APP.Abstractions",
+        "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Abstractions\\Edesoft.APP.Abstractions.csproj",
+        "packagesPath": "C:\\Users\\LENOVO-EQP301\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Abstractions\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\LENOVO-EQP301\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Application\\Edesoft.APP.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Application\\Edesoft.APP.Application.csproj",
+        "projectName": "Edesoft.APP.Application",
+        "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Application\\Edesoft.APP.Application.csproj",
+        "packagesPath": "C:\\Users\\LENOVO-EQP301\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\LENOVO-EQP301\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Abstractions\\Edesoft.APP.Abstractions.csproj": {
+                "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Abstractions\\Edesoft.APP.Abstractions.csproj"
+              },
+              "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Infrastructure\\Edesoft.APP.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Infrastructure\\Edesoft.APP.Infrastructure.csproj"
+              },
+              "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Tools\\Edesoft.APP.Tools.csproj": {
+                "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Tools\\Edesoft.APP.Tools.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "IronXL.Excel": {
+              "target": "Package",
+              "version": "[2022.12.11262, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Infrastructure\\Edesoft.APP.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Infrastructure\\Edesoft.APP.Infrastructure.csproj",
+        "projectName": "Edesoft.APP.Infrastructure",
+        "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Infrastructure\\Edesoft.APP.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\LENOVO-EQP301\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\LENOVO-EQP301\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Tools\\Edesoft.APP.Tools.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Tools\\Edesoft.APP.Tools.csproj",
+        "projectName": "Edesoft.APP.Tools",
+        "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Tools\\Edesoft.APP.Tools.csproj",
+        "packagesPath": "C:\\Users\\LENOVO-EQP301\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.Tools\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\LENOVO-EQP301\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

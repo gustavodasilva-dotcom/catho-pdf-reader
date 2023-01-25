@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IronXL.Excel" Version="2022.12.11262" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Edesoft.APP.Abstractions\Edesoft.APP.Abstractions.csproj" />
+    <ProjectReference Include="..\Edesoft.APP.Infrastructure\Edesoft.APP.Infrastructure.csproj" />
+    <ProjectReference Include="..\Edesoft.APP.Tools\Edesoft.APP.Tools.csproj" />
+  </ItemGroup>
+
+</Project>

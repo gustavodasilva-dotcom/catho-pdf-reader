@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Edesoft.APP.Worker-5cf1a96a-070f-4d6f-adc3-f43076d8ea84</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Edesoft.APP.Abstractions\Edesoft.APP.Abstractions.csproj" />
+    <ProjectReference Include="..\Edesoft.APP.Application\Edesoft.APP.Application.csproj" />
+    <ProjectReference Include="..\Edesoft.APP.Infrastructure\Edesoft.APP.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
