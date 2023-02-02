@@ -63,9 +63,7 @@ namespace Edesoft.APP.Application.Excel
         private static string GetCity(string textLine)
         {
             var local = textLine.Substring(textLine.IndexOf(":") + 1).Trim();
-            local = local.Replace("-", ",");
-            var localSplit = local.Split(",");
-            return localSplit[0].Trim() + ", " + localSplit[1].Trim();
+            return local.Split("-")[0];
         }
 
         public Dictionary<string, string> GenerateExcelFromText(
