@@ -38,7 +38,12 @@ namespace Edesoft.APP.Worker
 
                 try
                 {
-                    var files = _ioApplication.GetFiles();
+                    var toProcessPath = Path.Combine(
+                        AppDomain.CurrentDomain.BaseDirectory,
+                        Settings.Configuration["IO:ToProcess"] ??
+                            throw new ArgumentNullException("IO:ToProcess"));
+
+                    var files = _ioApplication.GetFiles(toProcessPath);
 
                     if (files.Length == 0)
                     {
@@ -65,6 +70,20 @@ namespace Edesoft.APP.Worker
                                     if (values.Keys.Count > 0)
                                         listValues.Add(values);
                                 }
+                                else
+                                {
+                                    _logger.LogInformation(string.Format("{0} - O PDF está vazio.",
+                                        DateTimeOffset.Now));
+
+                                    var errorFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                                        Settings.Configuration["IO:Error"] ??
+                                            throw new ArgumentNullException("IO:Error"),
+                                        DateTime.Now.Year.ToString(),
+                                        DateTime.Now.Month.ToString(),
+                                        DateTime.Now.Day.ToString());
+
+                                    _ioApplication.MoveTo(errorFolder, file);
+                                }
                             }
                             catch (Exception e)
                             {
@@ -73,8 +92,11 @@ namespace Edesoft.APP.Worker
                             }
                         }
 
-                        _excelApplication.GenerateExcel(listValues, Settings.Configuration["IO:Processed"] ??
-                            throw new ArgumentNullException("IO:Processed"));
+                        var processedFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                            Settings.Configuration["IO:Processed"] ??
+                                throw new ArgumentNullException("IO:Processed"));
+
+                        _excelApplication.GenerateExcel(listValues, processedFolder);
                     }
                 }
                 catch (Exception e)

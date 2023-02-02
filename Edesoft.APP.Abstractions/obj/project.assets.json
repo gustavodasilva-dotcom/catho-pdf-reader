@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "Edesoft.APP.DTOs/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/Edesoft.APP.DTOs.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Edesoft.APP.DTOs.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Edesoft.APP.DTOs/1.0.0": {
+      "type": "project",
+      "path": "../Edesoft.APP.DTOs/Edesoft.APP.DTOs.csproj",
+      "msbuildProject": "../Edesoft.APP.DTOs/Edesoft.APP.DTOs.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "Edesoft.APP.DTOs >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\LENOVO-EQP301\\.nuget\\packages\\": {},
@@ -39,7 +58,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.DTOs\\Edesoft.APP.DTOs.csproj": {
+              "projectPath": "C:\\Users\\LENOVO-EQP301\\source\\repos\\Edesoft.Solution\\Edesoft.APP.DTOs\\Edesoft.APP.DTOs.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -2,8 +2,17 @@
 {
     public interface IIOApplication
     {
-        string[] GetFiles();
-        void MoveTo(string toPath, string sourceFilePath);
+        string[] GetFiles(
+            string path,
+            bool createPath = true);
+
+        void MoveTo(
+            string toPath,
+            string sourceFilePath,
+            bool renameFile = true);
+
+        string RenameFile(string fileName);
+
         void CreateDir(string path);
     }
 }

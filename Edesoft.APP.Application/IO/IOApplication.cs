@@ -1,5 +1,4 @@
 ﻿using Edesoft.APP.Abstractions.IO;
-using Edesoft.APP.Infrastructure.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Edesoft.APP.Application.IO
@@ -11,43 +10,42 @@ namespace Edesoft.APP.Application.IO
         public IOApplication(ILogger<IOApplication> logger) =>
             _logger = logger;
 
-        public string[] GetFiles()
+        public string[] GetFiles(
+            string path,
+            bool createPath = true)
         {
-            var toProcessDir = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                Settings.Configuration["IO:ToProcess"] ??
-                    throw new ArgumentNullException("IO:ToProcess"),
-                DateTime.Now.Year.ToString(),
-                DateTime.Now.Month.ToString(),
-                DateTime.Now.Day.ToString());
+            if (createPath)
+                CreateDir(path);
 
-            CreateDir(toProcessDir);
-
-            return Directory.GetFiles(toProcessDir);
+            return Directory.GetFiles(path);
         }
 
-        public void MoveTo(string toPath, string sourceFilePath)
+        public void MoveTo(
+            string toPath,
+            string sourceFilePath,
+            bool renameFile = true)
         {
             var fileName = sourceFilePath.Split('\\').Last();
 
-            toPath = AppDomain.CurrentDomain.BaseDirectory + toPath;
-            var toPathLogger = toPath;
+            if (renameFile)
+                fileName = RenameFile(fileName);
 
             CreateDir(toPath);
 
             toPath = Path.Combine(toPath, fileName);
 
-            _logger.LogInformation(
-                string.Format("{0} - Movendo arquivo {1} de {2} para {3}.",
-                DateTimeOffset.Now,
-                fileName,
-                sourceFilePath.Split("\\")[sourceFilePath.Split("\\").Length - 5],
-                toPathLogger.Split("\\")[toPathLogger.Split("\\").Length - 4]));
-
             File.Move(@sourceFilePath, @toPath);
+        }
 
-            _logger.LogInformation(string.Format("{0} - Arquivo {1} movido.",
-                DateTimeOffset.Now, fileName));
+        public string RenameFile(string fileName)
+        {
+            var fileNameSplited = fileName.Split(".");
+
+            fileName = string.Concat(fileNameSplited[0],
+                "_", DateTime.Now.ToString("ddMMyyyyHHssff"), ".",
+                fileNameSplited[fileNameSplited.Length - 1]);
+
+            return fileName;
         }
 
         public void CreateDir(string path)

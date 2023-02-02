@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Edesoft.APP.DTOs\Edesoft.APP.DTOs.csproj" />
+  </ItemGroup>
+
 </Project>

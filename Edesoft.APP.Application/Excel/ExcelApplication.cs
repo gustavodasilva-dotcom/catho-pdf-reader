@@ -1,8 +1,9 @@
-﻿using Edesoft.APP.Abstractions.Excel;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Edesoft.APP.Abstractions.Excel;
 using Edesoft.APP.Abstractions.IO;
 using Edesoft.APP.Infrastructure.Configuration;
 using Edesoft.APP.Tools.Extensions;
-using IronXL;
 using Microsoft.Extensions.Logging;
 
 namespace Edesoft.APP.Application.Excel
@@ -142,73 +143,135 @@ namespace Edesoft.APP.Application.Excel
             List<Dictionary<string, string>> valuesToExcel,
             string toPath)
         {
-            var workbook = WorkBook.Create(ExcelFileFormat.XLSX);
-            var sheet = workbook.CreateWorkSheet("Planilha1");
-
             _logger.LogInformation(string.Format("{0} - Criando arquivo Excel.",
                 DateTimeOffset.Now));
 
-            var sheetLine = 1;
+            var savePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                Settings.Configuration["IO:ExcelSavePath"] ??
+                    throw new ArgumentNullException("IO:ExcelSavePath"));
 
-            sheet[$"A${sheetLine}"].Value = excelHeader[0];
-            sheet[$"B${sheetLine}"].Value = excelHeader[1];
-            sheet[$"C${sheetLine}"].Value = excelHeader[2];
-            sheet[$"D${sheetLine}"].Value = excelHeader[3];
-            sheet[$"E${sheetLine}"].Value = excelHeader[4];
-            sheet[$"F${sheetLine}"].Value = excelHeader[5];
-            sheet[$"G${sheetLine}"].Value = excelHeader[6];
+            var files = _ioApplication.GetFiles(savePath);
 
-            foreach (var item in valuesToExcel)
+            if (files.Length > 0)
             {
-                try
+                foreach (var file in files)
                 {
-                    sheetLine++;
+                    var oldFilePath = Path.Combine(
+                        AppDomain.CurrentDomain.BaseDirectory,
+                        Settings.Configuration["IO:OldFile"] ??
+                            throw new ArgumentNullException("IO:OldFile"));
 
-                    sheet[$"A${sheetLine}"].Value = item[excelHeader[0]];
-                    sheet[$"B${sheetLine}"].Value = item[excelHeader[1]];
-                    sheet[$"C${sheetLine}"].Value = item[excelHeader[2]];
-                    sheet[$"D${sheetLine}"].Value = item[excelHeader[3]];
-                    sheet[$"E${sheetLine}"].Value = item[excelHeader[4]];
-                    sheet[$"F${sheetLine}"].Value = item[excelHeader[5]];
-                    sheet[$"G${sheetLine}"].Value = item[excelHeader[6]];
-
-                    _ioApplication.MoveTo(
-                        Path.Combine(
-                            toPath,
-                            DateTime.Now.Year.ToString(),
-                            DateTime.Now.Month.ToString(),
-                            DateTime.Now.Day.ToString()),
-                        item.GetValueOrDefault("file") ??
-                            throw new ArgumentNullException("file"));
-                }
-                catch (Exception e)
-                {
-                    _logger.LogWarning(string.Format("{0} - {1}.",
-                        DateTimeOffset.Now, e.Message));
+                    _ioApplication.MoveTo(oldFilePath, file);
                 }
             }
 
-            var savePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                Settings.Configuration["ExcelInfo:SavePath"] ??
-                    throw new ArgumentNullException("ExcelInfo:SavePath"),
-                DateTime.Now.Year.ToString(),
-                DateTime.Now.Month.ToString(),
-                DateTime.Now.Day.ToString());
+            savePath = Path.Combine(savePath,
+                Settings.Configuration["ExcelInfo:FileName"] ??
+                    throw new ArgumentNullException("ExcelInfo:FileName"));
 
-            _ioApplication.CreateDir(savePath);
+            using (SpreadsheetDocument document = SpreadsheetDocument.Create(
+                savePath, DocumentFormat.OpenXml.SpreadsheetDocumentType.Workbook))
+            {
+                var workbookPart = document.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
 
-            var fileName = $"Curriculos_{DateTime.Now:ddMMyyyyhhmmss}.xlsx";
+                var worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                var sheetData = new SheetData();
+                worksheetPart.Worksheet = new Worksheet(sheetData);
 
-            savePath = Path.Combine(savePath, fileName);
+                Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
+                Sheet sheet = new()
+                {
+                    Id = workbookPart.GetIdOfPart(worksheetPart),
+                    SheetId = 1,
+                    Name = "Planilha1"
+                };
 
-            _logger.LogInformation(string.Format("{0} - Gerando arquivo {1}.",
-                DateTimeOffset.Now, fileName));
+                sheets.Append(sheet);
 
-            workbook.SaveAs(savePath);
+                Row headerRow = new();
 
-            _logger.LogInformation(string.Format("{0} - Arquivo {1} salvo e gerado.",
-                DateTimeOffset.Now, fileName));
+                foreach (var header in excelHeader)
+                {
+                    if (header == excelHeader[excelHeader.Length - 1])
+                        continue;
+
+                    var cell = new Cell
+                    {
+                        DataType = CellValues.String,
+                        CellValue = new CellValue(header)
+                    };
+
+                    headerRow.AppendChild(cell);
+                }
+
+                sheetData.AppendChild(headerRow);
+
+                foreach (var item in valuesToExcel)
+                {
+                    try
+                    {
+                        Row newRow = new();
+
+                        foreach (var header in excelHeader)
+                        {
+                            try
+                            {
+                                if (header == excelHeader[excelHeader.Length - 1])
+                                    continue;
+
+                                var cell = new Cell
+                                {
+                                    DataType = CellValues.String,
+                                    CellValue = new CellValue(item[header])
+                                };
+
+                                newRow.AppendChild(cell);
+                            }
+                            catch (Exception e)
+                            {
+                                _logger.LogWarning(string.Format("{0} - {1}.",
+                                    DateTimeOffset.Now, e.Message));
+
+                                throw;
+                            }
+                        }
+
+                        sheetData.AppendChild(newRow);
+
+                        var processedFolder = Path.Combine(toPath,
+                            DateTime.Now.Year.ToString(),
+                            DateTime.Now.Month.ToString(),
+                            DateTime.Now.Day.ToString());
+
+                        _ioApplication.MoveTo(processedFolder,
+                            item.GetValueOrDefault("file") ??
+                                throw new ArgumentNullException("file"));
+                    }
+                    catch (Exception)
+                    {
+                        var errorFolder = Path.Combine(
+                            AppDomain.CurrentDomain.BaseDirectory,
+                            Settings.Configuration["IO:Error"] ??
+                                throw new ArgumentNullException("IO:Error"),
+                            DateTime.Now.Year.ToString(),
+                            DateTime.Now.Month.ToString(),
+                            DateTime.Now.Day.ToString());
+
+                        _ioApplication.MoveTo(errorFolder,
+                            item.GetValueOrDefault("file") ??
+                                throw new ArgumentNullException("file"));
+                    }
+                }
+
+                _logger.LogInformation(string.Format("{0} - Gerando arquivo {1}.",
+                    DateTimeOffset.Now, savePath));
+
+                workbookPart.Workbook.Save();
+
+                _logger.LogInformation(string.Format("{0} - Arquivo {1} salvo e gerado.",
+                    DateTimeOffset.Now, savePath));
+            }
         }
     }
 }
